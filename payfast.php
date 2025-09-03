@@ -1,6 +1,9 @@
 <?php
-// Allow requests from your React app's origin
-header("Access-Control-Allow-Origin: http://localhost:3000");
+// Get frontend URL from environment variables for CORS, with a local fallback.
+$frontend_url = getenv('FRONTEND_URL') ?: 'http://localhost:3000';
+
+// Set all headers, including the dynamic CORS header.
+header("Access-Control-Allow-Origin: " . $frontend_url);
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Max-Age: 3600");
@@ -13,15 +16,11 @@ $merchant_id = getenv('PAYFAST_MERCHANT_ID') ?: '10037484';
 $merchant_key = getenv('PAYFAST_MERCHANT_KEY') ?: 'gl7ggaewzav2a';
 $passphrase = getenv('PAYFAST_PASSPHRASE') ?: 'Work_2000100';
  
-$frontend_url = getenv('FRONTEND_URL') ?: 'http://localhost:3000';
 $backend_url = getenv('BACKEND_URL') ?: 'http://localhost:8000';
  
 // PayFast URL
 $is_sandbox = true;
 $payfast_url = $is_sandbox ? 'https://sandbox.payfast.co.za/eng/process' : 'https://www.payfast.co.za/eng/process';
- 
-// Dynamically set the allowed origin for CORS
-header("Access-Control-Allow-Origin: " . $frontend_url);
  
 // --- PAYMENT DATA ---
 // URLs for redirection after payment
