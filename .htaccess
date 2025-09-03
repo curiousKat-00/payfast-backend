@@ -1,0 +1,2 @@
+# Tell Apache to use payfast.php as the default file for a directory.
+DirectoryIndex payfast.php
